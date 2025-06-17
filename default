@@ -1,0 +1,24 @@
+
+---
+
+### 🐍 `generator/core.py`
+```python
+import yaml
+import argparse
+from templater import generate_records
+from output_writer import write_output
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("template", help="Path to YAML template file")
+    parser.add_argument("--out", default="output.json", help="Output file")
+    args = parser.parse_args()
+
+    with open(args.template, 'r') as f:
+        template = yaml.safe_load(f)
+
+    data = generate_records(template)
+    write_output(data, args.out)
+
+if __name__ == "__main__":
+    main()
